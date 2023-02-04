@@ -1,12 +1,15 @@
 class 繁體中文{
     #language = 'zh-TW';
+    #window = typeof window !== 'undefined' ? window : {};
     #math = Math || {};
     #console = typeof window !== 'undefined' ? window.console : console;
     constructor(){
-        console.warn('怎麼會有人想用英文以外的語言寫程式呢？');
+        this.#console.warn('怎麼會有人想用英文以外的語言寫程式呢？');
         if(!this.#window.console){
             this.#window.console = {}
         }
+        this.#window.數學 = this.#math;
+        this.#window.控制台 = this.#console;
         this.#math.圓周率 = this.#math.PI || 3.141592653589793;
         function factorial(n){
             let last = 1;
@@ -26,6 +29,20 @@ class 繁體中文{
             }
             return(last);
         }
+        this.#console.列印 = this.#console.log;
+        this.#console.印出 = this.#console.log;
+        this.#console.打印 = this.#console.log;
+        this.#console.記錄 = this.#console.log;
+        this.#console.紀錄 = () => {this.#console.error('紀錄是名詞，在此應寫動詞的「記錄」！');};
+        this.#console.日誌 = () => {this.#console.error('日誌是名詞，在此應寫動詞的「記錄」！');};
+        this.#console.資訊 = this.#console.info;
+        this.#console.信息 = this.#console.info;
+        this.#console.警告 = this.#console.warn;
+        this.#console.提示 = this.#console.warn;
+        this.#console.報錯 = this.#console.error;
+        this.#console.錯誤 = () => {this.#console.error('錯誤是名詞，在此應寫動詞的「報錯」！');};
+        this.#console.整理 = this.#console.table;
+        this.#console.表格 = () => {this.#console.error('表格是名詞，在此應寫動詞的「整理」！');};
     }
 	get 真(){return true;}
 	get 假(){return false;}
@@ -87,3 +104,5 @@ class 繁體中文{
         };
     }
 }
+
+export default 繁體中文;
