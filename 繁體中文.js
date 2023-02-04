@@ -178,6 +178,9 @@ class 繁體中文{
             return(value);
         }
     }
+    繁體中文(){
+        return new (this.constructor)();
+    }
 }
 
-export default 繁體中文;
+export default new 繁體中文();
