@@ -1,4 +1,4 @@
-# zh-TW.js｜繁體中文.js
+# 繁體中文(zh-TW).js
 
 > 2023 © MaoHuPi
 
