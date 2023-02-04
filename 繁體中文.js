@@ -3,6 +3,8 @@ class 繁體中文{
     #window = typeof window !== 'undefined' ? window : {};
     #math = Math || {};
     #console = typeof window !== 'undefined' ? window.console : console;
+    #variables = {};
+    #useStrict = false;
     constructor(){
         this.#console.warn('怎麼會有人想用英文以外的語言寫程式呢？');
         if(!this.#window.console){
@@ -44,6 +46,58 @@ class 繁體中文{
         this.#console.整理 = this.#console.table;
         this.#console.表格 = () => {this.#console.error('表格是名詞，在此應寫動詞的「整理」！');};
     }
+    get 同層級(){return 'var';}
+    get 同區塊(){return 'let';}
+    get 同區塊唯讀(){return 'const';}
+    get 使用嚴格模式(){
+        this.#useStrict = true;
+        return () => {};
+    }
+    get 宣告變數(){
+        return (name, value = undefined, mode = 'var') => {
+            if(this.#variables[name] && this.#variables[name][1] == 'const'){
+                this.#console.error(`「${name}」已宣告為唯讀變數，故不可重複宣告！`);
+                return undefined;
+            }
+            else if(this.#variables[name] && this.#variables[name][1] == 'let'){
+                this.#console.error(`「${name}」已宣告為區塊變數，故不可重複宣告！`);
+                return undefined;
+            }
+            else{
+                this.#variables[name] = [value, mode];
+                return value;
+            }
+        }
+    }
+    #setVariable = (name, value) => {
+        if(this.#variables[name] && this.#variables[name][1] == 'const'){
+            this.#console.error(`「${name}」已宣告為唯讀變數，故不可重新設定！`);
+            return undefined;
+        }
+        else if(this.#useStrict && !(name in this.#variables)){
+            this.#console.error(`已啟用嚴格模式，而「${name}」尚未宣告，故不可直接設定！`);
+            return undefined;
+        }
+        else{
+            this.#variables[name] = [value, this.#variables[name][1]];
+            return value;
+        }
+    }
+    get 設定變數(){return this.#setVariable;}
+    get 變數賦值(){return this.#setVariable;}
+    #getVariable = (name) => {
+        if(this.#useStrict && !(name in this.#variables)){
+            this.#console.error(`「${name}」尚未宣告，故不可直接讀取！`);
+            return undefined;
+        }
+        else{
+            return this.#variables[name][0];
+        }
+    }
+    get 獲取變數(){return this.#getVariable;}
+    get 取得變數(){return this.#getVariable;}
+    get 讀取變數(){return this.#getVariable;}
+    get 變數取值(){return this.#getVariable;}
 	get 真(){return true;}
 	get 假(){return false;}
 	get 空(){return [,][0];}
@@ -55,9 +109,12 @@ class 繁體中文{
 	get 大整數(){return BigInt;}
 	get 陣列(){return Array;}
 	get 物件(){return Object;}
+	get 集合(){return Set;}
 	get 布林(){return Boolean;}
 	get 控制台(){return this.#console;}
 	get 數學(){return this.#math;}
+	get 負(){return x => -x;}
+	get 零(){return 0;}
 	get 一(){return 1;}
 	get 二(){return 2;}
 	get 三(){return 3;}
@@ -96,12 +153,25 @@ class 繁體中文{
     }
     get 如果(){
         return (bool, callback = undefined) => {
-            if(bool){
-                return callback !== undefined ? 
-                    callback() : 
-                    (callback2) => {return callback2();};
+            if(callback !== undefined){
+                if(bool){
+                    callback();
+                }
+            }
+            else{
+                return bool ? 
+                    callback2 => {callback2();} : 
+                    () => {};
             }
         };
+    }
+    get 當(){
+        return (value, condition, callback) => {
+            while(condition(value)){
+                value = callback(value);
+            }
+            return(value);
+        }
     }
 }
 
