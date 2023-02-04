@@ -1,10 +1,17 @@
 class 繁體中文{
     #language = 'zh-TW';
+    #fileName = '繁體中文.mjs';
     #window = typeof window !== 'undefined' ? window : {};
     #math = Math || {};
     #console = typeof window !== 'undefined' ? window.console : console;
+    #document = typeof window !== 'undefined' ? window.document : {};
     #variables = {};
     #useStrict = false;
+    #translate = {
+        文字: 'text', 
+        然後: 'then', 
+        查詢選擇器: 'querySelector', 
+    }
     constructor(){
         this.#console.warn('怎麼會有人想用英文以外的語言寫程式呢？');
         if(!this.#window.console){
@@ -43,8 +50,9 @@ class 繁體中文{
         this.#console.提示 = this.#console.warn;
         this.#console.報錯 = this.#console.error;
         this.#console.錯誤 = () => {this.#console.error('錯誤是名詞，在此應寫動詞的「報錯」！');};
-        this.#console.整理 = this.#console.table;
-        this.#console.表格 = () => {this.#console.error('表格是名詞，在此應寫動詞的「整理」！');};
+        this.#console.以表格整理 = this.#console.table;
+        this.#console.整理成表格 = this.#console.table;
+        this.#console.表格 = () => {this.#console.error('表格是名詞，在此應寫成動作「以表格整理」！');};
     }
     get 同層級(){return 'var';}
     get 同區塊(){return 'let';}
@@ -116,6 +124,10 @@ class 繁體中文{
 	get 鍵不重複物件(){return Map;}
 	get 象徵(){return Symbol;}
 	get 布林(){return Boolean;}
+	get 視窗(){return this.#window;}
+	get 文檔(){return this.#document;}
+	get 文件(){return this.#document;}
+	get 文獻(){return this.#document;}
 	get 控制台(){return this.#console;}
 	get 數學(){return this.#math;}
 	get 負(){return x => -x;}
@@ -178,6 +190,10 @@ class 繁體中文{
             return(value);
         }
     }
+    get 拿(){return this.#window.fetch.bind(this.#window);}
+    get 翻譯(){return this.#translate;}
+    get 檔名(){return this.#fileName;}
+    get 檔案名稱(){return this.#fileName;}
     繁體中文(){
         return new (this.constructor)();
     }
