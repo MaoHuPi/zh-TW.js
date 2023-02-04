@@ -190,7 +190,10 @@ class 繁體中文{
             return(value);
         }
     }
-    get 拿(){return this.#window.fetch.bind(this.#window);}
+    #fetch = this.#window.fetch.bind(this.#window);
+    get 拿(){return this.#fetch;}
+    get 取(){return this.#fetch;}
+    get 廢取(){return this.#fetch;}
     get 翻譯(){return this.#translate;}
     get 檔名(){return this.#fileName;}
     get 檔案名稱(){return this.#fileName;}
