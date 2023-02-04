@@ -102,6 +102,8 @@ class 繁體中文{
 	get 假(){return false;}
 	get 空(){return [,][0];}
 	get 鈉鹽(){return NaN;}
+	get 非數字(){return NaN;}
+	get 不是數字(){return NaN;}
 	get 無限大(){return Infinity;}
 	get 未定義(){return undefined;}
 	get 字串(){return String;}
@@ -110,6 +112,9 @@ class 繁體中文{
 	get 陣列(){return Array;}
 	get 物件(){return Object;}
 	get 集合(){return Set;}
+	get 地圖(){return Map;}
+	get 鍵不重複物件(){return Map;}
+	get 象徵(){return Symbol;}
 	get 布林(){return Boolean;}
 	get 控制台(){return this.#console;}
 	get 數學(){return this.#math;}
