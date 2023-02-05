@@ -10,6 +10,9 @@ class 繁體中文{
     #translate = {
         文字: 'text', 
         然後: 'then', 
+        地圖: 'map', 
+        填充: 'fill', 
+        轉字串: 'toString', 
         查詢選擇器: 'querySelector', 
     }
     constructor(){
@@ -189,6 +192,20 @@ class 繁體中文{
             }
             return(value);
         }
+    }
+    get 對於(){
+        return {
+            在: (obj, callback) => {
+                for(let key in obj){
+                    callback(key);
+                }
+            }, 
+            的: (obj, callback) => {
+                for(let value of obj){
+                    callback(value);
+                }
+            }
+        };
     }
     #fetch = this.#window.fetch.bind(this.#window);
     get 拿(){return this.#fetch;}
